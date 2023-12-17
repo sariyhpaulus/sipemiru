@@ -24,16 +24,16 @@ import com.polstat.sipemiru.ui.screen.PeminjamanRuanganScreen
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavHost() {
-    val loginViewModel = LoginViewModel()
+    //val loginViewModel = viewModel<LoginViewModel>() // Gunakan viewModel() untuk membuat instance LoginViewModel
     val navController = rememberNavController()
-    val ruanganViewModel = viewModel<RuanganViewModel>() // Gunakan viewModel() untuk membuat instance RuanganViewModel
+    //val ruanganViewModel = viewModel<RuanganViewModel>() // Gunakan viewModel() untuk membuat instance RuanganViewModel
     val peminjamanViewModel = viewModel<PeminjamanViewModel>() // Gunakan viewModel() untuk membuat instance PeminjamanViewModel
 
     NavHost(navController = navController, startDestination = "login") {
-        composable("login") { LoginScreen(loginViewModel, navController) }
-        composable("success") { LoginSuccessScreen(loginViewModel, navController) }
+        composable("login") { LoginScreen(viewModel(factory = LoginViewModel.Factory), navController) }
+        //composable("success") { LoginSuccessScreen(loginViewModel, navController) }
         composable("home") { HomeScreen(navController) }
-        composable("ruangan") { CreateRuanganScreen(ruanganViewModel, navController) } // Gunakan ruanganViewModel langsung
+        composable("ruangan") { CreateRuanganScreen(viewModel(factory = RuanganViewModel.Factory), navController) } // Gunakan ruanganViewModel langsung
         composable("peminjaman"){ AddPeminjamanScreen(peminjamanViewModel, navController)}
         composable("profile") { ProfileScreen(navController) }
     }

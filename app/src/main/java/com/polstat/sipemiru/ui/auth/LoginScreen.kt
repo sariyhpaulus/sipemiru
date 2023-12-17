@@ -51,6 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.polstat.sipemiru.data.UserPreferencesRepository
+import com.polstat.sipemiru.data.UserRepository
 import com.polstat.sipemiru.ui.state.EmailState
 import com.polstat.sipemiru.ui.state.PasswordState
 import com.polstat.sipemiru.ui.theme.Base
@@ -59,33 +61,39 @@ import com.polstat.sipemiru.ui.theme.SipemiruTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+//@Preview
+//@Composable
+//fun LoginScreenPreview() {
+//    SipemiruTheme{
+//        // A surface container using the 'background' color from the theme
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = MaterialTheme.colorScheme.background
+//        ) {
+////            val dataStore
+////            val navController = rememberNavController()
+////            val loginViewModel: LoginViewModel = LoginViewModel(
+////                userPreferencesRepository = UserPreferencesRepository(),
+////                userRepository = UserRepository()
+////            )
+////            LoginScreen(
+////                loginViewModel = loginViewModel,
+////                navController = navController,
+////            )
+//        }
+//    }
+//}
+
 @Preview
 @Composable
-fun LoginScreenPreview() {
-    SipemiruTheme{
-        // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            val loginViewModel = LoginViewModel()
-            val navController = rememberNavController()
-            LoginScreen(loginViewModel, navController)
-        }
-    }
-
-}
-
-@Composable
-fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController){
+fun LoginScreen(
+    loginViewModel: LoginViewModel,
+    navController: NavController
+){
     val emailState = remember { EmailState() }
-    val passwordState = remember {
-        PasswordState()
-    }
+    val passwordState = remember { PasswordState() }
     val loginResponse by loginViewModel.loginResponse.observeAsState()
-    val showToast = remember {
-        mutableStateOf(false)
-    }
+    val showToast = remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -118,8 +126,6 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController){
                         )
                 ) {}
                 Column {
-//                    Spacer(modifier = Modifier.height(15.dp))
-//                    LoginPicture()
                     Spacer(modifier = Modifier.height(15.dp))
                     LoginTitle()
                     Spacer(modifier = Modifier.height(15.dp))

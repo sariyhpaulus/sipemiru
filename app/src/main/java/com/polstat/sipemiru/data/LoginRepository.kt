@@ -1,7 +1,7 @@
 package com.polstat.sipemiru.data
 
-import com.polstat.sipemiru.request.LoginRequest
-import com.polstat.sipemiru.response.LoginResponse
+import com.polstat.sipemiru.model.LoginRequest
+import com.polstat.sipemiru.model.LoginResponse
 import com.polstat.sipemiru.service.RetrofitInstance
 
 class LoginRepository {

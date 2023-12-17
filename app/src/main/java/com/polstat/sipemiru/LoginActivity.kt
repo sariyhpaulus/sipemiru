@@ -9,14 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
 import com.polstat.sipemiru.navigation.AppNavHost
-import com.polstat.sipemiru.request.LoginRequest
-import com.polstat.sipemiru.response.LoginResponse
+import com.polstat.sipemiru.model.LoginRequest
+import com.polstat.sipemiru.model.LoginResponse
 import com.polstat.sipemiru.service.ApiClient
 import com.polstat.sipemiru.service.SessionManager
 import com.polstat.sipemiru.ui.theme.SipemiruTheme
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -33,8 +33,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.polstat.sipemiru.ui.auth.LoginViewModel
 import com.polstat.sipemiru.ui.component.CustomBottomNavigation
 import com.polstat.sipemiru.ui.screen.Screen
 import com.polstat.sipemiru.ui.theme.Base
@@ -65,7 +67,6 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
     var expandedGedung by remember { mutableStateOf(false) }
     var expandedLantai by remember { mutableStateOf(false) }
 
-    val ruanganResponse by ruanganViewModel.ruanganResponse.observeAsState()
     val coroutineScope = rememberCoroutineScope()
     val showToast = remember{
         mutableStateOf(false)
@@ -109,6 +110,7 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                     value = ruanganId.value,
                     onValueChange = {
                         ruanganId.value = it
+                        ruanganViewModel.onRuanganIdChange(it.text)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -125,6 +127,7 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                     value = namaRuangan.value,
                     onValueChange = {
                         namaRuangan.value = it
+                        ruanganViewModel.onNamaRuanganChange(it.text)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -141,8 +144,11 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                     onExpandedChange = { newValue -> expandedGedung = newValue}
                 ) {
                     TextField(
-                        value = selectedGedung,
-                        onValueChange = {},
+                        value = ruanganViewModel.onGedungChange(selectedGedung),
+                        onValueChange = {
+//                            selectedGedung = it
+//                            ruanganViewModel.onGedungChange(it)
+                        },
                         readOnly = true,
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedGedung)
@@ -178,8 +184,11 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                     onExpandedChange = { newValue -> expandedLantai = newValue}
                 ) {
                     TextField(
-                        value = selectedLantai,
-                        onValueChange = {},
+                        value = ruanganViewModel.onLantaiChange(selectedLantai),
+                        onValueChange = {
+//                            selectedLantai = it
+//                            ruanganViewModel.onLantaiChange(it)
+                        },
                         readOnly = true,
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedLantai)
@@ -214,6 +223,7 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                     value = kapasitas.value,
                     onValueChange = {
                         kapasitas.value = it
+                        ruanganViewModel.onKapasitasChange(it.text)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -224,13 +234,17 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                 ElevatedButton(
                     onClick = {
                         coroutineScope.launch {
-                            ruanganViewModel.requestRuangan(
-                                ruanganId = ruanganId.value.text,
-                                namaRuangan = namaRuangan.value.text,
-                                gedung = selectedGedung,
-                                lantai = selectedLantai,
-                                kapasitas = kapasitas.value.text
-                            )
+                           when(ruanganViewModel.addRuangan()){
+                                 AddRuanganReport.Success -> {
+                                      navController.navigate(Screen.Ruangan.id)
+                                 }
+                                 AddRuanganReport.BadInput -> {
+                                      showToast.value = true
+                                 }
+                                 AddRuanganReport.Error -> {
+                                      showToast.value = true
+                                 }
+                           }
                         }
                     },
                     modifier = Modifier
@@ -251,19 +265,12 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                     )
                 ) {
                     Text("Submit")
-                    ruanganResponse?.let {
-                        if (it.data != null) {
-                            navController.navigate(Screen.Ruangan.id)
-                        } else{
-                            showToast.value = true
-                        }
-                    }
                 }
-
-                if (showToast.value) {
-                    Toast.makeText(LocalContext.current, "${ruanganResponse?.message}" + ": Ruangan tidak valid", Toast.LENGTH_SHORT).show()
-                    showToast.value = false // Reset the state
-                }
+//
+//                if (showToast.value) {
+//                    Toast.makeText(LocalContext.current, "${ruanganResponse?.message}" + ": Ruangan tidak valid", Toast.LENGTH_SHORT).show()
+//                    showToast.value = false // Reset the state
+//                }
             }
         }
     }
@@ -278,10 +285,8 @@ fun CreateRuanganScreenPreview() {
                 .fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-
-            val ruanganViewModel = RuanganViewModel()
             val navController = rememberNavController()
-            CreateRuanganScreen(ruanganViewModel = ruanganViewModel, navController = navController)
+            CreateRuanganScreen(viewModel(factory = RuanganViewModel.Factory), navController = navController)
         }
     }
 }

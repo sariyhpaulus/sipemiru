@@ -1,4 +1,4 @@
-package com.polstat.sipemiru.request
+package com.polstat.sipemiru.model
 
 data class LoginRequest(
     val email: String,

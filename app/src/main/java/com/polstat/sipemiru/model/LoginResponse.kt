@@ -1,4 +1,4 @@
-package com.polstat.sipemiru.response
+package com.polstat.sipemiru.model
 
 data class LoginResponse(
     val status: Int?,

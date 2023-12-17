@@ -1,20 +1,14 @@
 package com.polstat.sipemiru.data
 
 import android.content.Context
-import com.polstat.sipemiru.request.RuanganRequest
+import com.polstat.sipemiru.model.AddRuanganForm
 import com.polstat.sipemiru.response.RuanganResponse
-import com.polstat.sipemiru.service.ApiClient
-import com.polstat.sipemiru.service.ApiService
-import com.polstat.sipemiru.service.RetrofitInstance
-import com.polstat.sipemiru.service.SessionManager
+import com.polstat.sipemiru.service.RuanganApiService
 
-class RuanganRepository() {
-    //private lateinit var sessionManager: SessionManager
-    private val ruanganApiService = RetrofitInstance.ruanganApiService
-    //private lateinit var apiClient: ApiClient
+interface RuanganRepository {
+    suspend fun addRuangan(token: String, ruangan: AddRuanganForm) : RuanganResponse
+}
 
-    suspend fun requestForRuangan(ruanganRequest: RuanganRequest): RuanganResponse {
-        return ruanganApiService.ruangans(ruanganRequest)
-//        return apiClient.getApiService().ruangans(ruanganRequest)
-    }
+class NetworkRuanganRepository(private val ruanganApiService: RuanganApiService): RuanganRepository {
+    override suspend fun addRuangan(token: String, ruangan: AddRuanganForm) = ruanganApiService.addRuangan("Bearer $token", ruangan)
 }
