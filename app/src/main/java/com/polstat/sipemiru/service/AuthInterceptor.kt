@@ -1,14 +1,20 @@
 package com.polstat.sipemiru.service
 
+import android.content.Context
 import okhttp3.Interceptor
+import okhttp3.Response
 
-class AuthInterceptor(private val sessionManager: SessionManager): Interceptor {
-    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-        val request = chain.request()
-        val token = sessionManager.fetchAuthToken()
-        val newRequest = request.newBuilder()
-            .addHeader("Authorization", "Bearer $token")
-            .build()
-        return chain.proceed(request)
+class AuthInterceptor(context: Context) : Interceptor {
+    private val sessionManager = SessionManager(context)
+
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val requestBuilder = chain.request().newBuilder()
+
+        // If token has been saved, add it to the request
+        sessionManager.fetchAuthToken()?.let {
+            requestBuilder.addHeader("Authorization", "Bearer $it")
+        }
+
+        return chain.proceed(requestBuilder.build())
     }
 }

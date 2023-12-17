@@ -81,8 +81,6 @@ fun CustomBottomNavigationItem(item: Screen, isSelected: Boolean, onClick: () ->
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
                 imageVector = item.icon,
@@ -90,11 +88,11 @@ fun CustomBottomNavigationItem(item: Screen, isSelected: Boolean, onClick: () ->
                 tint = contentColor
             )
             AnimatedVisibility(visible = isSelected) {
-                Text(
-                    text = item.title,
-                    fontWeight = FontWeight.Medium,
-                    color = contentColor
-                )
+//                Text(
+//                    text = item.title,
+//                    fontWeight = FontWeight.Medium,
+//                    color = contentColor
+//                )
             }
         }
     }

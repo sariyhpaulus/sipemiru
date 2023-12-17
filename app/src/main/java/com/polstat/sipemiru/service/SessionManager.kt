@@ -3,7 +3,7 @@ package com.polstat.sipemiru.service
 import android.content.Context
 import android.content.SharedPreferences
 
-class SessionManager(context: Context) {
+class SessionManager(private val context: Context): AuthenticationManager {
     private var prefs: SharedPreferences = context.getSharedPreferences("Sipemiru", Context.MODE_PRIVATE)
 
     companion object{
@@ -24,5 +24,9 @@ class SessionManager(context: Context) {
         val editor = prefs.edit()
         editor.clear()
         editor.apply()
+    }
+
+    override fun getAccessToken(): String {
+        return fetchAuthToken() ?: ""
     }
 }

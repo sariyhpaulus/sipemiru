@@ -1,5 +1,6 @@
 package com.polstat.sipemiru.ui.ruangan
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +14,7 @@ class RuanganViewModel() : ViewModel(){
     private val ruanganRepository = RuanganRepository()
 
     private val _ruanganResponse = MutableLiveData<RuanganResponse>()
-    //private val _loginResponse = MutableLiveData<RuanganResponse>()
+
     val ruanganResponse : MutableLiveData<RuanganResponse> = _ruanganResponse
 
     fun requestRuangan(
@@ -24,7 +25,7 @@ class RuanganViewModel() : ViewModel(){
         kapasitas: String
     ){
         println("berhasil")
-        println(ruanganId)
+        println(gedung)
 
         //val token = SessionManager(this).fetchAuthToken()
 

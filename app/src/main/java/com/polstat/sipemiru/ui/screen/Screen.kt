@@ -14,12 +14,12 @@ sealed class Screen(
     val icon: ImageVector
 ) {
     object Beranda : Screen("home", "Beranda", Icons.Outlined.Home)
-    object PeminjamanRuangan : Screen("peminjaman", "Peminjaman", Icons.Outlined.EditNote)
+    object Peminjaman : Screen("peminjaman", "Peminjaman", Icons.Outlined.EditNote)
     object Ruangan : Screen("ruangan", "Ruangan", Icons.Outlined.MeetingRoom)
     object View : Screen("view", "View", Icons.Outlined.Assignment)
     object Profil : Screen("profil", "Profil", Icons.Outlined.Person)
 
     object Items{
-        val list = listOf(Beranda, PeminjamanRuangan, Ruangan, Profil)
+        val list = listOf(Beranda, Peminjaman, Ruangan, Profil)
     }
 }

@@ -24,7 +24,7 @@ fun PeminjamanRuanganScreen(navController: NavController){
         bottomBar = {
             CustomBottomNavigation(
                 navController = navController,
-                currentScreenId = Screen.PeminjamanRuangan.id
+                currentScreenId = Screen.Peminjaman.id
             ){
                 currentScreen.value = it
                 navController.navigate(it.id)

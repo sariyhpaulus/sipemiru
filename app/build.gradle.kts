@@ -71,6 +71,10 @@ dependencies {
     implementation("com.google.ar.sceneform:filament-android:1.17.1")
     implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.dagger:dagger:2.38.1")
+    implementation("androidx.core:core-i18n:1.0.0-alpha01")
+    annotationProcessor("com.google.dagger:dagger-compiler:2.38.1")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

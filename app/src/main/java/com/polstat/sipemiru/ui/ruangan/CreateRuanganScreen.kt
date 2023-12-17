@@ -231,7 +231,6 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                                 lantai = selectedLantai,
                                 kapasitas = kapasitas.value.text
                             )
-                            delay(500)
                         }
                     },
                     modifier = Modifier
@@ -279,6 +278,7 @@ fun CreateRuanganScreenPreview() {
                 .fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
+
             val ruanganViewModel = RuanganViewModel()
             val navController = rememberNavController()
             CreateRuanganScreen(ruanganViewModel = ruanganViewModel, navController = navController)

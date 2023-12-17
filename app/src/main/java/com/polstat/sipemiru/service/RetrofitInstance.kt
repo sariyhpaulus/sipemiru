@@ -10,23 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RetrofitInstance {
-    private const val BASE_URL = "http://192.168.1.11:8081"
+    private const val BASE_URL = "http://192.168.1.41:8081"
 
     private val gson : Gson = GsonBuilder()
         .setLenient()
         .create()
-
-    // Function to create OkHttpClient with AuthInterceptor
-//    private val okHttpClient : OkHttpClient by lazy {
-//        OkHttpClient.Builder()
-//            .addInterceptor(AuthInterceptor(sessionManager = SessionManager()))
-//            .build()
-//    }
-    private fun createOkHttpClient(sessionManager: SessionManager): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(sessionManager))
-            .build()
-    }
 
     private val retrofit : Retrofit by lazy {
 
@@ -48,8 +36,8 @@ object RetrofitInstance {
         retrofit.create(RuanganApiService::class.java)
     }
 
-//    fun createRuanganApiService(sessionManager: SessionManager): RuanganApiService {
-//        val okHttpClient = createOkHttpClient(sessionManager)
-//        return retrofit.newBuilder().client(okHttpClient).build().create(RuanganApiService::class.java)
-//    }
+    val peminjamanApiService: PeminjamanApiService by lazy {
+        retrofit.create(PeminjamanApiService::class.java)
+    }
+
 }
