@@ -1,4 +1,4 @@
-package com.polstat.sipemiru.repository
+package com.polstat.sipemiru.data
 
 import com.polstat.sipemiru.request.LoginRequest
 import com.polstat.sipemiru.response.LoginResponse

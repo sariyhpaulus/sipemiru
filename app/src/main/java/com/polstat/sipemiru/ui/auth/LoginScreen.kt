@@ -130,7 +130,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController){
                     LoginButton(emailState, passwordState, loginViewModel) {
                         loginResponse?.let {
                             if (it.data != null){
-                                navController.navigate("success")
+                                navController.navigate("home")
                             } else {
                                 showToast.value = true
                             }
@@ -195,7 +195,7 @@ fun PasswordTextField(passwordState: PasswordState) {
     OutlinedTextField(
         value = passwordState.password,
         onValueChange = {
-           passwordState.password = it
+            passwordState.password = it
             passwordState.validatePassword()
         },
         label = {
