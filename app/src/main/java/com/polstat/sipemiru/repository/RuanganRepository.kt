@@ -1,6 +1,5 @@
-package com.polstat.sipemiru.data
+package com.polstat.sipemiru.repository
 
-import android.content.Context
 import com.polstat.sipemiru.model.AddRuanganForm
 import com.polstat.sipemiru.response.RuanganResponse
 import com.polstat.sipemiru.service.RuanganApiService

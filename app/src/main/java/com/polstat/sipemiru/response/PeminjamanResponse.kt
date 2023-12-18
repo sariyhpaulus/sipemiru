@@ -1,22 +1,14 @@
 package com.polstat.sipemiru.response
 
+import com.polstat.sipemiru.model.Peminjaman
+import kotlinx.serialization.Serializable
 import java.sql.Time
 import java.time.LocalDate
 import java.time.LocalTime
 
+@Serializable
 data class PeminjamanResponse(
     val status: Int?,
     val message: String?,
-    val data: DataPeminjaman?
+    val data: Peminjaman?
 )
-
-class DataPeminjaman{
-    val peminjamanId: Int = 0
-    val emailPeminjam: String = ""
-    val ruanganId: String = ""
-    val tanggalPeminjaman: LocalDate? = null
-    val waktuMulai: LocalTime? = null
-    val waktuSelesai: LocalTime? = null
-    val keperluan: String = ""
-    val status: String = ""
-}

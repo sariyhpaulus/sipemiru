@@ -1,12 +1,5 @@
 package com.polstat.sipemiru.ui.profile
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.polstat.sipemiru.data.UserRepository
-import com.polstat.sipemiru.response.ProfileResponse
-import kotlinx.coroutines.launch
-
 //class ProfileViewModel: ViewModel() {
 //    private val userRepository = UserRepository()
 //

@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.polstat.sipemiru.data.UserPreferencesRepository
+import com.polstat.sipemiru.repository.UserPreferencesRepository
 import com.polstat.sipemiru.service.AppContainer
 import com.polstat.sipemiru.service.DefaultAppContainer
 

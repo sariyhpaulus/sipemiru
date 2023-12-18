@@ -1,11 +1,13 @@
 package com.polstat.sipemiru.service
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.polstat.sipemiru.data.NetworkRuanganRepository
-import com.polstat.sipemiru.data.NetworkUserRepository
-import com.polstat.sipemiru.data.PeminjamanRepository
-import com.polstat.sipemiru.data.RuanganRepository
-import com.polstat.sipemiru.data.UserRepository
+import com.polstat.sipemiru.repository.NetworkPeminjamanRepository
+import com.polstat.sipemiru.repository.NetworkRuanganRepository
+import com.polstat.sipemiru.repository.NetworkUserRepository
+import com.polstat.sipemiru.repository.PeminjamanRepository
+import com.polstat.sipemiru.repository.RuanganRepository
+import com.polstat.sipemiru.repository.UserRepository
+import com.polstat.sipemiru.service.RetrofitInstance.peminjamanApiService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -19,7 +21,7 @@ interface AppContainer {
 }
 
 class DefaultAppContainer() : AppContainer {
-    private val baseUrl = "http://192.168.1.41:8081/"
+    private val baseUrl = "http://192.168.1.11:8081/"
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .baseUrl(baseUrl)
@@ -38,6 +40,10 @@ class DefaultAppContainer() : AppContainer {
         retrofit.create(RuanganApiService::class.java)
     }
 
+    private val peminjamanApiService: PeminjamanApiService by lazy {
+        retrofit.create(PeminjamanApiService::class.java)
+    }
+
     //Repository
     override val userRepository: UserRepository by lazy {
         NetworkUserRepository(userApiService)
@@ -47,7 +53,7 @@ class DefaultAppContainer() : AppContainer {
         NetworkRuanganRepository(ruanganApiService)
     }
     override val peminjamanRepository: PeminjamanRepository by lazy {
-        retrofit.create(PeminjamanRepository::class.java)
+        NetworkPeminjamanRepository(peminjamanApiService)
     }
 
 }

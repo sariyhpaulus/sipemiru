@@ -51,8 +51,6 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
     val currentScreen = mutableStateOf<Screen>(Screen.Ruangan)
     val ruanganId = mutableStateOf(TextFieldValue(""))
     val namaRuangan = mutableStateOf(TextFieldValue(""))
-    //val gedung = mutableStateOf("")
-    //val lantai = mutableStateOf("")
     val kapasitas = mutableStateOf(TextFieldValue(""))
 
     // List of items for the dropdown

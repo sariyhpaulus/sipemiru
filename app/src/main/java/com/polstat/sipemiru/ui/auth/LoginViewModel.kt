@@ -10,9 +10,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.polstat.sipemiru.SipemiruApplication
-import com.polstat.sipemiru.data.LoginRepository
-import com.polstat.sipemiru.data.UserPreferencesRepository
-import com.polstat.sipemiru.data.UserRepository
+import com.polstat.sipemiru.repository.LoginRepository
+import com.polstat.sipemiru.repository.UserPreferencesRepository
+import com.polstat.sipemiru.repository.UserRepository
 import com.polstat.sipemiru.model.LoginRequest
 import com.polstat.sipemiru.model.LoginResponse
 import kotlinx.coroutines.launch

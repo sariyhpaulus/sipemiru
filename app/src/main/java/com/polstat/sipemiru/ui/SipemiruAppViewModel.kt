@@ -1,6 +1,5 @@
 package com.polstat.sipemiru.ui
 
-import android.text.Spannable.Factory
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,10 +7,9 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.polstat.sipemiru.R
 import com.polstat.sipemiru.SipemiruApplication
-import com.polstat.sipemiru.data.UserPreferencesRepository
-import com.polstat.sipemiru.data.UserState
+import com.polstat.sipemiru.repository.UserPreferencesRepository
+import com.polstat.sipemiru.repository.UserState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

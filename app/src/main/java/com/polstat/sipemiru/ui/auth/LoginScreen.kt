@@ -22,10 +22,8 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -50,14 +48,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.polstat.sipemiru.data.UserPreferencesRepository
-import com.polstat.sipemiru.data.UserRepository
 import com.polstat.sipemiru.ui.state.EmailState
 import com.polstat.sipemiru.ui.state.PasswordState
 import com.polstat.sipemiru.ui.theme.Base
 import com.polstat.sipemiru.ui.theme.Blue80
-import com.polstat.sipemiru.ui.theme.SipemiruTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

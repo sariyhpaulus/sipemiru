@@ -1,4 +1,4 @@
-package com.polstat.sipemiru.data
+package com.polstat.sipemiru.repository
 
 import android.util.Log
 import androidx.datastore.core.DataStore

@@ -11,13 +11,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.polstat.sipemiru.SipemiruApplication
-import com.polstat.sipemiru.data.RuanganRepository
-import com.polstat.sipemiru.data.UserPreferencesRepository
-import com.polstat.sipemiru.data.UserRepository
-import com.polstat.sipemiru.data.UserState
+import com.polstat.sipemiru.repository.RuanganRepository
+import com.polstat.sipemiru.repository.UserPreferencesRepository
+import com.polstat.sipemiru.repository.UserRepository
+import com.polstat.sipemiru.repository.UserState
 import com.polstat.sipemiru.model.AddRuanganForm
 import com.polstat.sipemiru.response.UserResponse
-import com.polstat.sipemiru.ui.auth.LoginViewModel
 import kotlinx.coroutines.launch
 
 

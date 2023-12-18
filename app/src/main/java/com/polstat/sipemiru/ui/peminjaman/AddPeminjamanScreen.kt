@@ -23,7 +23,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -31,16 +30,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.polstat.sipemiru.ui.component.CustomBottomNavigation
 import com.polstat.sipemiru.ui.component.DatePicker
 import com.polstat.sipemiru.ui.component.TimePicker
+import com.polstat.sipemiru.ui.ruangan.RuanganViewModel
 import com.polstat.sipemiru.ui.screen.Screen
 import com.polstat.sipemiru.ui.theme.Base
 import com.polstat.sipemiru.ui.theme.Blue60
 import com.polstat.sipemiru.ui.theme.SipemiruTheme
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import java.time.Clock
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -48,7 +52,7 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController: NavController){
+fun AddPeminjamanScreen(addPeminjamanViewModel: AddPeminjamanViewModel, navController: NavController){
     val currentScreen = mutableStateOf<Screen>(Screen.Ruangan)
 
     val ruanganId = remember { mutableStateOf(TextFieldValue("")) }
@@ -63,7 +67,6 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
     val keperluan = remember { mutableStateOf(TextFieldValue("")) }
 
     val coroutineScope = rememberCoroutineScope()
-    val peminjamanResponse by peminjamanViewModel.peminjamanResponse.observeAsState()
     val showToast = remember{
         mutableStateOf(false)
     }
@@ -106,6 +109,7 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
                     value = ruanganId.value,
                     onValueChange = {
                         ruanganId.value = it
+                        addPeminjamanViewModel.onRuanganIdChange(it.text)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -122,6 +126,7 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
                     value = tanggalPeminjaman.value,
                     onValueChange = {
                         tanggalPeminjaman.value = it
+                        addPeminjamanViewModel.onTanggalPeminjamanChange(it)
                     }
                 )
 
@@ -133,6 +138,7 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
                     value = waktuMulai.value,
                     onValueChange = {
                         waktuMulai.value = it
+                        addPeminjamanViewModel.onWaktuMulaiChange(it)
                     }
                 )
 
@@ -143,8 +149,8 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
                 TimePicker(
                     value = waktuSelesai.value,
                     onValueChange = {
-//                        selectedWaktuSelesai = it
                         waktuSelesai.value = it
+                        addPeminjamanViewModel.onWaktuSelesaiChange(it)
                     }
                 )
 
@@ -156,6 +162,7 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
                     value = keperluan.value,
                     onValueChange = {
                         keperluan.value = it
+                        addPeminjamanViewModel.onKeperluanChange(it.text)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -167,14 +174,14 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
                 ElevatedButton(
                     onClick = {
                         coroutineScope.launch {
-
-                            peminjamanViewModel.requestPeminjaman(
-                                ruanganId = ruanganId.value.text,
-                                tanggalPeminjaman = LocalDate.parse(tanggalPeminjaman.value, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                                waktuMulai = LocalTime.parse(waktuMulai.value, DateTimeFormatter.ofPattern("HH:mm")),
-                                waktuSelesai = LocalTime.parse(waktuSelesai.value, DateTimeFormatter.ofPattern("HH:mm")),
-                                keperluan = keperluan.value.text
-                            )
+                            when(addPeminjamanViewModel.addPeminjaman()){
+                                AddPeminjamanReport.FAILED -> {
+                                    showToast.value = true
+                                }
+                                AddPeminjamanReport.SUCCESS -> {
+                                    navController.navigate(Screen.Peminjaman.id)
+                                }
+                            }
                         }
                     },
                     modifier = Modifier
@@ -194,22 +201,11 @@ fun AddPeminjamanScreen(peminjamanViewModel: PeminjamanViewModel, navController:
                         pressedElevation = 15.dp
                         )
                     ) {
-                        Text(
-                            text = "Ajukan Peminjaman",
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        peminjamanResponse?.let {
-                            if (it.data != null) {
-                                navController.navigate(Screen.Ruangan.id)
-                            } else{
-                                showToast.value = true
-                            }
-                        }
-                    }
-                    if (showToast.value) {
-                        Toast.makeText(LocalContext.current, "${peminjamanResponse?.message}" + ": Peminjaman tidak valid", Toast.LENGTH_SHORT).show()
-                        showToast.value = false // Reset the state
-                    }
+                    Text(
+                        text = "Ajukan Peminjaman",
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
             }
         }
     }
@@ -225,10 +221,8 @@ fun AddPeminjamanScreenPreview() {
                 .fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-
-            val peminjamanViewModel = PeminjamanViewModel()
             val navController = rememberNavController()
-            AddPeminjamanScreen(peminjamanViewModel = peminjamanViewModel, navController = navController)
+            AddPeminjamanScreen(viewModel(factory = AddPeminjamanViewModel.Factory), navController = navController)
         }
     }
 }
