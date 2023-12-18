@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,6 +26,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,9 +55,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.polstat.sipemiru.R
+import com.polstat.sipemiru.ui.screen.Screen
 import com.polstat.sipemiru.ui.state.EmailState
 import com.polstat.sipemiru.ui.state.PasswordState
 import com.polstat.sipemiru.ui.theme.Base
+import com.polstat.sipemiru.ui.theme.Blue60
 import com.polstat.sipemiru.ui.theme.Blue80
 import com.polstat.sipemiru.ui.theme.PoppinsFamily
 import com.polstat.sipemiru.ui.theme.Typography
@@ -72,6 +76,8 @@ fun LoginScreen(
     val passwordState = remember { PasswordState() }
     val loginResponse by loginViewModel.loginResponse.observeAsState()
     val showToast = remember { mutableStateOf(false) }
+
+    val currentScreen = mutableStateOf<Screen>(Screen.Login)
 
     LazyColumn(
         modifier = Modifier
@@ -121,6 +127,21 @@ fun LoginScreen(
                                 showToast.value = true
                             }
                         }
+                    }
+                    Spacer(modifier = Modifier.height(5.dp))
+                    OutlinedButton(
+                        onClick = {
+                            navController.navigate(Screen.Register.id)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(0.85f),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = Blue60
+                        ),
+                    ){
+                        Text("Register")
                     }
                     Spacer(modifier = Modifier.height(30.dp))
                     if (showToast.value) {

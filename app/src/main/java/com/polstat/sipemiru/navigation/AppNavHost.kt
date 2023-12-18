@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.polstat.sipemiru.ui.auth.LoginScreen
 import com.polstat.sipemiru.ui.auth.LoginViewModel
+import com.polstat.sipemiru.ui.auth.RegisterScreen
+import com.polstat.sipemiru.ui.auth.RegisterViewModel
 import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanScreen
 import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanViewModel
 import com.polstat.sipemiru.ui.peminjaman.GetPeminjamanScreen
@@ -30,7 +32,7 @@ fun AppNavHost() {
 
     NavHost(navController = navController, startDestination = "login") {
         composable("login") { LoginScreen(viewModel(factory = LoginViewModel.Factory), navController) }
-        //composable("home") { HomeScreen(navController) }
+        composable("register") { RegisterScreen(viewModel(factory = RegisterViewModel.Factory), navController) }
         composable("ruangan") { CreateRuanganScreen(viewModel(factory = RuanganViewModel.Factory), navController) }
         composable("peminjaman"){ AddPeminjamanScreen(viewModel(factory = AddPeminjamanViewModel.Factory), navController)}
         composable("profile") { ProfileScreen(viewModel(factory = ProfileViewModel.Factory),navController)}

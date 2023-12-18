@@ -52,7 +52,6 @@ import com.polstat.sipemiru.ui.theme.SipemiruTheme
 @Composable
 fun ProfileScreen(profileViewModel: ProfileViewModel, navController: NavController){
     val currentScreen = mutableStateOf<Screen>(Screen.Profile)
-    //lateinit var userState: UserState
 
     Scaffold(
         topBar = {},
@@ -247,31 +246,33 @@ fun ProfileScreen(profileViewModel: ProfileViewModel, navController: NavControll
                 Text("Edit Profile")
             }
 
-            ElevatedButton(
-                onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        top = 16.dp,
-                        end = 16.dp,
-                        bottom = 8.dp
-                    )
-                    .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Blue60,
-                    contentColor = Color.White
-                ),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 10.dp,
-                    pressedElevation = 15.dp
-                )
-            ) {
-                Text("Change Password")
-            }
+//            ElevatedButton(
+//                onClick = { /*TODO*/ },
+//                modifier = Modifier
+//                    .padding(
+//                        start = 16.dp,
+//                        top = 16.dp,
+//                        end = 16.dp,
+//                        bottom = 8.dp
+//                    )
+//                    .fillMaxWidth(),
+//                colors = ButtonDefaults.buttonColors(
+//                    containerColor = Blue60,
+//                    contentColor = Color.White
+//                ),
+//                elevation = ButtonDefaults.buttonElevation(
+//                    defaultElevation = 10.dp,
+//                    pressedElevation = 15.dp
+//                )
+//            ) {
+//                Text("Change Password")
+//            }
 
 
             OutlinedButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(Screen.Login.id)
+                },
                 modifier = Modifier
                     .padding(
                         start = 16.dp,

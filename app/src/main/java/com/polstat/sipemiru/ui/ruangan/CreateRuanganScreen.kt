@@ -2,7 +2,9 @@ package com.polstat.sipemiru.ui.ruangan
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,10 +14,12 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.Surface
 import androidx.compose.material.TextField
+import androidx.compose.material.TopAppBar
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,11 +37,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.polstat.sipemiru.repository.UserState
+import com.polstat.sipemiru.response.UserResponse
 import com.polstat.sipemiru.ui.auth.LoginViewModel
 import com.polstat.sipemiru.ui.component.CustomBottomNavigation
+import com.polstat.sipemiru.ui.component.CustomBottomNavigationAdmin
 import com.polstat.sipemiru.ui.screen.Screen
 import com.polstat.sipemiru.ui.theme.Base
 import com.polstat.sipemiru.ui.theme.Blue60
@@ -48,6 +56,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavController){
+
+    lateinit var userState: UserState
+    lateinit var userResponse: UserResponse
+
     val currentScreen = mutableStateOf<Screen>(Screen.Ruangan)
     val ruanganId = mutableStateOf(TextFieldValue(""))
     val namaRuangan = mutableStateOf(TextFieldValue(""))
@@ -71,7 +83,6 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
     }
 
     Scaffold(
-        topBar = {},
         bottomBar = {
             CustomBottomNavigation(
                 navController = navController,
@@ -81,6 +92,7 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                 navController.navigate(it.id)
             }
         }
+
     ) { innerPadding->
         Column(
             modifier = Modifier
@@ -93,12 +105,24 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                     .padding(16.dp)
                     .fillMaxWidth()
             ){
-                Text(
-                    text = "Tambah Ruangan",
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Spacer(modifier = Modifier.padding(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Tambah Ruangan",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp
+                    )
+                    Icon(
+                        imageVector = Screen.Ruangan.icon,
+                        contentDescription = "Ruangan",
+                        tint = Blue60
+                    )
+                }
+
 
                 Text(
                     text = "Kode Ruangan",
@@ -151,7 +175,10 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedGedung)
                         },
-                        modifier = Modifier.menuAnchor().fillMaxWidth().padding(bottom = 8.dp),
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp),
                         colors = ExposedDropdownMenuDefaults.textFieldColors()
                     )
                     ExposedDropdownMenu(
@@ -191,7 +218,10 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedLantai)
                         },
-                        modifier = Modifier.menuAnchor().fillMaxWidth().padding(bottom = 8.dp),
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp),
                         colors = ExposedDropdownMenuDefaults.textFieldColors()
                     )
                     ExposedDropdownMenu(
@@ -264,11 +294,6 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                 ) {
                     Text("Submit")
                 }
-//
-//                if (showToast.value) {
-//                    Toast.makeText(LocalContext.current, "${ruanganResponse?.message}" + ": Ruangan tidak valid", Toast.LENGTH_SHORT).show()
-//                    showToast.value = false // Reset the state
-//                }
             }
         }
     }
