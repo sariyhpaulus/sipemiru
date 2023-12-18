@@ -11,6 +11,8 @@ import com.polstat.sipemiru.ui.auth.LoginScreen
 import com.polstat.sipemiru.ui.auth.LoginViewModel
 import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanScreen
 import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanViewModel
+import com.polstat.sipemiru.ui.peminjaman.GetPeminjamanScreen
+import com.polstat.sipemiru.ui.peminjaman.GetPeminjamanViewModel
 import com.polstat.sipemiru.ui.profile.ProfileScreen
 import com.polstat.sipemiru.ui.ruangan.CreateRuanganScreen
 import com.polstat.sipemiru.ui.ruangan.GetRuanganScreen
@@ -21,18 +23,15 @@ import com.polstat.sipemiru.ui.screen.HomeScreen
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavHost() {
-    //val loginViewModel = viewModel<LoginViewModel>() // Gunakan viewModel() untuk membuat instance LoginViewModel
     val navController = rememberNavController()
-    //val ruanganViewModel = viewModel<RuanganViewModel>() // Gunakan viewModel() untuk membuat instance RuanganViewModel
-    //val addPeminjamanViewModel = viewModel<AddPeminjamanViewModel>() // Gunakan viewModel() untuk membuat instance PeminjamanViewModel
 
     NavHost(navController = navController, startDestination = "login") {
         composable("login") { LoginScreen(viewModel(factory = LoginViewModel.Factory), navController) }
-        //composable("success") { LoginSuccessScreen(loginViewModel, navController) }
         composable("home") { HomeScreen(navController) }
-        composable("ruangan") { CreateRuanganScreen(viewModel(factory = RuanganViewModel.Factory), navController) } // Gunakan ruanganViewModel langsung
+        composable("ruangan") { CreateRuanganScreen(viewModel(factory = RuanganViewModel.Factory), navController) }
         composable("peminjaman"){ AddPeminjamanScreen(viewModel(factory = AddPeminjamanViewModel.Factory), navController)}
         composable("profile") { ProfileScreen(navController) }
         composable("daftarRuangan") { GetRuanganScreen(viewModel(factory = GetRuanganViewModel.Factory), navController)}
+        composable("daftarPeminjaman") { GetPeminjamanScreen(viewModel(factory = GetPeminjamanViewModel.Factory), navController)}
     }
 }

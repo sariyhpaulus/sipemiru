@@ -47,7 +47,7 @@ fun RuanganItemCard(
     modifier: Modifier = Modifier,
     options: @Composable (() -> Unit) = {}
 ) {
-    var expanded by rememberSaveable{ mutableStateOf(false) }
+    //var expanded by rememberSaveable{ mutableStateOf(false) }
     Card(
         modifier = modifier.padding(bottom = 16.dp),
         elevation =  CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -95,7 +95,7 @@ fun RuanganItemCard(
     }
 }
 
-@Preview()
+@Preview
 @Composable
 fun ListRuanganItemCard(
     ruanganId: String = "R001",

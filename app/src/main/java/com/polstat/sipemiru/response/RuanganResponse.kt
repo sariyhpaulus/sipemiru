@@ -15,11 +15,3 @@ data class RuanganResponse (
     val message: String?,
     val data: Ruangan?
 )
-
-//class DataRuangan{
-//    val ruanganId: String = ""
-//    val namaRuangan: String = ""
-//    val gedung: String = ""
-//    val lantai: String = ""
-//    val kapasitas: Int = 0
-//}

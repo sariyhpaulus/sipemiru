@@ -9,8 +9,9 @@ import java.time.LocalTime
 
 @Serializable
 data class Peminjaman(
-    val ruanganId: String,
+    val peminjamanId: Int,
     val emailPeminjam: String,
+    val ruangan: Ruangan,
     val tanggalPeminjaman: String,
     val waktuMulai: String,
     val waktuSelesai: String,

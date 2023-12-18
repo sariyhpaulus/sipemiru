@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,7 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
@@ -31,9 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.polstat.sipemiru.ui.component.RuanganItemCard
 import com.polstat.sipemiru.ui.screen.Screen
-import com.polstat.sipemiru.ui.theme.Base
 import com.polstat.sipemiru.ui.theme.Blue40
-import com.polstat.sipemiru.ui.theme.Blue60
 import com.polstat.sipemiru.ui.theme.Blue80
 import com.polstat.sipemiru.ui.theme.SipemiruTheme
 

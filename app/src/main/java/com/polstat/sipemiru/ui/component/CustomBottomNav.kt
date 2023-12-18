@@ -21,22 +21,25 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.polstat.sipemiru.repository.UserState
+import com.polstat.sipemiru.response.UserResponse
 import com.polstat.sipemiru.ui.theme.Blue40
 
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CustomBottomNavigation(
     navController: NavController,
     currentScreenId: String,
     onItemSelected: (Screen) -> Unit
 ){
-    val items = Screen.Items.list
+    lateinit var userState: UserState
+    lateinit var userResponse: UserResponse
+
+    val items = Screen.ItemsAdmin.list
 
     Surface(
         elevation = 150.dp
@@ -88,11 +91,6 @@ fun CustomBottomNavigationItem(item: Screen, isSelected: Boolean, onClick: () ->
                 tint = contentColor
             )
             AnimatedVisibility(visible = isSelected) {
-//                Text(
-//                    text = item.title,
-//                    fontWeight = FontWeight.Medium,
-//                    color = contentColor
-//                )
             }
         }
     }
