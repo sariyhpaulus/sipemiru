@@ -19,13 +19,14 @@ sealed class Screen(
     object Ruangan : Screen("ruangan", "Ruangan", Icons.Outlined.MeetingRoom)
     object DaftarRuangan : Screen("daftarRuangan", "Daftar Ruangan", Icons.Outlined.MeetingRoom)
     object View : Screen("view", "View", Icons.Outlined.Assignment)
-    object Profil : Screen("profil", "Profil", Icons.Outlined.Person)
+    object Profile : Screen("profile", "Profile", Icons.Outlined.Person)
+    object EditProfile : Screen("editProfile", "Edit Profile", Icons.Outlined.Person)
 
-    object Items{
-        val list = listOf(Beranda, Peminjaman, Ruangan, Profil)
+    object ItemsUser{
+        val list = listOf(DaftarPeminjaman, DaftarRuangan, Profile)
     }
 
     object ItemsAdmin{
-        val list = listOf(Beranda, Peminjaman, DaftarPeminjaman, Ruangan, Profil)
+        val list = listOf(Peminjaman, DaftarPeminjaman, Ruangan, Profile)
     }
 }

@@ -68,6 +68,12 @@ class GetRuanganViewModel(
                 println("masuk admin")
                 println(listRuanganResponse)
             }
+            else if(userState.isPeminjam){
+                println("sebelum fetch data")
+                listRuanganResponse  = ruanganRepository.getAllRuangan(userState.token)
+                println("masuk admin")
+                println(listRuanganResponse)
+            }
             listRuangan = listRuanganResponse.data
         } catch (e: Exception){
             Log.e(TAG, "Error: ${e.message}")

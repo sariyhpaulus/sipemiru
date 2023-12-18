@@ -13,7 +13,10 @@ import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanScreen
 import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanViewModel
 import com.polstat.sipemiru.ui.peminjaman.GetPeminjamanScreen
 import com.polstat.sipemiru.ui.peminjaman.GetPeminjamanViewModel
+import com.polstat.sipemiru.ui.profile.EditProfileScreen
+import com.polstat.sipemiru.ui.profile.EditProfileViewModel
 import com.polstat.sipemiru.ui.profile.ProfileScreen
+import com.polstat.sipemiru.ui.profile.ProfileViewModel
 import com.polstat.sipemiru.ui.ruangan.CreateRuanganScreen
 import com.polstat.sipemiru.ui.ruangan.GetRuanganScreen
 import com.polstat.sipemiru.ui.ruangan.GetRuanganViewModel
@@ -27,10 +30,11 @@ fun AppNavHost() {
 
     NavHost(navController = navController, startDestination = "login") {
         composable("login") { LoginScreen(viewModel(factory = LoginViewModel.Factory), navController) }
-        composable("home") { HomeScreen(navController) }
+        //composable("home") { HomeScreen(navController) }
         composable("ruangan") { CreateRuanganScreen(viewModel(factory = RuanganViewModel.Factory), navController) }
         composable("peminjaman"){ AddPeminjamanScreen(viewModel(factory = AddPeminjamanViewModel.Factory), navController)}
-        composable("profile") { ProfileScreen(navController) }
+        composable("profile") { ProfileScreen(viewModel(factory = ProfileViewModel.Factory),navController)}
+        composable("editProfile") { EditProfileScreen(viewModel(factory = EditProfileViewModel.Factory), navController) }
         composable("daftarRuangan") { GetRuanganScreen(viewModel(factory = GetRuanganViewModel.Factory), navController)}
         composable("daftarPeminjaman") { GetPeminjamanScreen(viewModel(factory = GetPeminjamanViewModel.Factory), navController)}
     }

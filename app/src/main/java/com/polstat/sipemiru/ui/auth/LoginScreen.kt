@@ -1,8 +1,10 @@
 package com.polstat.sipemiru.ui.auth
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,43 +42,25 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.polstat.sipemiru.R
 import com.polstat.sipemiru.ui.state.EmailState
 import com.polstat.sipemiru.ui.state.PasswordState
 import com.polstat.sipemiru.ui.theme.Base
 import com.polstat.sipemiru.ui.theme.Blue80
+import com.polstat.sipemiru.ui.theme.PoppinsFamily
+import com.polstat.sipemiru.ui.theme.Typography
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
-//@Preview
-//@Composable
-//fun LoginScreenPreview() {
-//    SipemiruTheme{
-//        // A surface container using the 'background' color from the theme
-//        Surface(
-//            modifier = Modifier.fillMaxSize(),
-//            color = MaterialTheme.colorScheme.background
-//        ) {
-////            val dataStore
-////            val navController = rememberNavController()
-////            val loginViewModel: LoginViewModel = LoginViewModel(
-////                userPreferencesRepository = UserPreferencesRepository(),
-////                userRepository = UserRepository()
-////            )
-////            LoginScreen(
-////                loginViewModel = loginViewModel,
-////                navController = navController,
-////            )
-//        }
-//    }
-//}
 
 @Preview
 @Composable
@@ -121,6 +105,8 @@ fun LoginScreen(
                 ) {}
                 Column {
                     Spacer(modifier = Modifier.height(15.dp))
+                    LoginPicture()
+                    Spacer(modifier = Modifier.height(15.dp))
                     LoginTitle()
                     Spacer(modifier = Modifier.height(15.dp))
                     EmailTextField(emailState)
@@ -130,7 +116,7 @@ fun LoginScreen(
                     LoginButton(emailState, passwordState, loginViewModel) {
                         loginResponse?.let {
                             if (it.data != null){
-                                navController.navigate("home")
+                                navController.navigate("profile")
                             } else {
                                 showToast.value = true
                             }
@@ -164,7 +150,8 @@ fun EmailTextField(emailState: EmailState) {
         label = {
             Text(
                 text = "Email",
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold
             )
         },
         isError = !emailState.isEmailValid,
@@ -201,7 +188,8 @@ fun PasswordTextField(passwordState: PasswordState) {
         label = {
             Text(
                 text = "Password",
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold
             )
         },
         isError = !passwordState.isPasswordValid,
@@ -209,7 +197,6 @@ fun PasswordTextField(passwordState: PasswordState) {
             .fillMaxWidth(0.85f)
             .focusRequester(focusRequester)
             .onFocusChanged { passwordState.isPasswordFocused = it.isFocused },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         maxLines = 1,
         trailingIcon = {
             if (showPassword.value) {
@@ -246,6 +233,43 @@ fun PasswordTextField(passwordState: PasswordState) {
 }
 
 @Composable
+fun LoginTitle() {
+    Column {
+        Text(
+            text = "Sipemiru.",
+            color = Blue80,
+            style = Typography.titleMedium,
+            modifier = Modifier.fillMaxWidth(0.85f),
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Sistem Peminjaman Ruangan",
+            color = Color.Gray,
+            modifier = Modifier.fillMaxWidth(0.85f),
+            style = Typography.titleSmall,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+fun LoginPicture(){
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(0.85f),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(R.drawable.logo),
+            contentDescription = "Login Picture",
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+        )
+    }
+}
+
+@Composable
 fun LoginButton(emailState: EmailState, passwordState: PasswordState, loginViewModel: LoginViewModel, onLoginClick: () -> Unit) {
     val isButtonEnabled = emailState.email.isNotEmpty() && passwordState.password.isNotEmpty()
     val coroutineScope = rememberCoroutineScope()
@@ -263,27 +287,16 @@ fun LoginButton(emailState: EmailState, passwordState: PasswordState, loginViewM
             .fillMaxWidth(0.85f),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Green,
-            contentColor = Color.Black
+            containerColor = Blue80,
+            contentColor = Color.White
         ),
     ) {
         Text(
             text = "Masuk",
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = PoppinsFamily,
             fontSize = 18.sp
         )
-    }
-}
-
-@Composable
-fun LoginTitle() {
-    Column {
-        Text(
-            text = "Sipemiru",
-            color = Color.Black,
-            style = typography.headlineMedium
-        )
-        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
