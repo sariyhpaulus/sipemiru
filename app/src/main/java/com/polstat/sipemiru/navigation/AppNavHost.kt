@@ -13,6 +13,8 @@ import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanScreen
 import com.polstat.sipemiru.ui.peminjaman.AddPeminjamanViewModel
 import com.polstat.sipemiru.ui.profile.ProfileScreen
 import com.polstat.sipemiru.ui.ruangan.CreateRuanganScreen
+import com.polstat.sipemiru.ui.ruangan.GetRuanganScreen
+import com.polstat.sipemiru.ui.ruangan.GetRuanganViewModel
 import com.polstat.sipemiru.ui.ruangan.RuanganViewModel
 import com.polstat.sipemiru.ui.screen.HomeScreen
 
@@ -31,5 +33,6 @@ fun AppNavHost() {
         composable("ruangan") { CreateRuanganScreen(viewModel(factory = RuanganViewModel.Factory), navController) } // Gunakan ruanganViewModel langsung
         composable("peminjaman"){ AddPeminjamanScreen(viewModel(factory = AddPeminjamanViewModel.Factory), navController)}
         composable("profile") { ProfileScreen(navController) }
+        composable("daftarRuangan") { GetRuanganScreen(viewModel(factory = GetRuanganViewModel.Factory), navController)}
     }
 }

@@ -234,7 +234,7 @@ fun CreateRuanganScreen(ruanganViewModel: RuanganViewModel ,navController: NavCo
                         coroutineScope.launch {
                            when(ruanganViewModel.addRuangan()){
                                  AddRuanganReport.Success -> {
-                                      navController.navigate(Screen.Ruangan.id)
+                                      navController.navigate(Screen.DaftarRuangan.id)
                                  }
                                  AddRuanganReport.BadInput -> {
                                       showToast.value = true

@@ -8,9 +8,6 @@ interface UserRepository{
 }
 
 class NetworkUserRepository(private val userApiService: UserApiService): UserRepository{
-    override suspend fun showProfile(token: String): UserResponse {
-        return userApiService.showProfile(token)
-    }
-
+    override suspend fun showProfile(token: String): UserResponse = userApiService.showProfile("Bearer $token")
 }
 

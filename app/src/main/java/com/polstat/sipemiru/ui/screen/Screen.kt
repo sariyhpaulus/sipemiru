@@ -16,6 +16,8 @@ sealed class Screen(
     object Beranda : Screen("home", "Beranda", Icons.Outlined.Home)
     object Peminjaman : Screen("peminjaman", "Peminjaman", Icons.Outlined.EditNote)
     object Ruangan : Screen("ruangan", "Ruangan", Icons.Outlined.MeetingRoom)
+
+    object DaftarRuangan : Screen("daftarRuangan", "Daftar Ruangan", Icons.Outlined.MeetingRoom)
     object View : Screen("view", "View", Icons.Outlined.Assignment)
     object Profil : Screen("profil", "Profil", Icons.Outlined.Person)
 

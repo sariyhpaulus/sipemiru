@@ -49,8 +49,8 @@ class LoginViewModel(
                         it
                     )
                 }
-                val isAdmin = userResponse?.data?.roles?.any() { it.name == "ROLE_ADMIN" }
-                val isPeminjam = userResponse?.data?.roles?.any() { it.name == "ROLE_PEMINJAM" }
+                val isAdmin = userResponse?.data?.roles?.any { role -> role == "ROLE_ADMIN" }
+                val isPeminjam = userResponse?.data?.roles?.any { role -> role == "ROLE_PEMINJAM" }
 
                 Log.d(TAG, "name: ${userResponse?.data?.firstName} ${userResponse?.data?.lastName}")
                 Log.d(TAG, "firstName: ${userResponse?.data?.firstName}")
@@ -62,8 +62,8 @@ class LoginViewModel(
                 userPreferencesRepository.saveFirstName("${userResponse?.data?.firstName}")
                 userPreferencesRepository.saveLastName("${userResponse?.data?.lastName}")
                 userPreferencesRepository.saveEmail("${userResponse?.data?.email}")
-                userPreferencesRepository.saveIsAdmin(isAdmin!!)
-                userPreferencesRepository.saveIsPeminjam(isPeminjam!!)
+                userPreferencesRepository.saveIsAdmin(isAdmin?:false)
+                userPreferencesRepository.saveIsPeminjam(isPeminjam?:false)
 
             } catch(e: HttpException) {
                 when (e.code()) {

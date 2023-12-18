@@ -43,15 +43,15 @@ val Typography = Typography(
     bodyMedium = TextStyle(
         fontFamily = PoppinsFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
+        fontSize = 22.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.25.sp
     ),
     bodySmall = TextStyle(
         fontFamily = PoppinsFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        lineHeight = 16.sp,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
         letterSpacing = 0.25.sp
     ),
     titleLarge = TextStyle(
